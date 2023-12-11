@@ -1,0 +1,6 @@
+1.윈도우시작 버튼클릭
+2.cmd입력 enter
+
+C:\Users\TEA> cd C:\2023-05-JAVA-DEVELOPER\workspaceSE\21.쓰레드[Thread]\bin
+
+C:\2023-05-JAVA-DEVELOPER\workspaceSE\21.쓰레드[Thread]\bin> java SynchronizeUpperLowerThreadMain
