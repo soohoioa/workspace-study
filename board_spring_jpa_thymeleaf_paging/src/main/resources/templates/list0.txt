@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>게시판</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel=stylesheet href="css/styles.css" type="text/css">
+<link rel=stylesheet href="css/board.css" type="text/css">
+<script type="text/javascript">
+	function boardCreate() {
+		location.href = "board_write.jsp";
+	}
+</script>
+</head>
+<body bgcolor=#FFFFFF text=#000000 leftmargin=0 topmargin=0
+	marginwidth=0 marginheight=0>
+	<!-- container start-->
+	<div id="container">
+
+		<!-- header start -->
+		<div id="header" th:insert="~{include_common_top::include_common_top}">
+			<!-- include_common_top.html start-->
+			<!-- include_common_top.html end-->
+		</div>
+		<!-- header end -->
+
+		<!-- navigation start-->
+		<div id="navigation"
+			th:insert="~{include_common_left::include_common_left}">
+			<!-- include_common_left.html start-->
+			<!-- include_common_left.html end-->
+		</div>
+		<!-- navigation end-->
+		<!-- wrapper start -->
+		<div id="wrapper">
+			<!-- content start -->
+			<!-- include_content.jsp start-->
+									 
+			<div id="content" th:with="pageSize = ${boardListPageDto.page.pageable.pageSize},
+									   pageNumber = ${boardListPageDto.page.pageable.pageNumber},
+									   totalPages = ${boardListPageDto.page.totalPages},
+									   totalCount=${boardListPageDto.page.totalElements},
+									   blockSize=${boardListPageDto.blockSize},
+									   currentBlock=${boardListPageDto.currentBlock},
+									   blockBeginPage=${boardListPageDto.blockBeginPage},
+									   blockEndPage=${boardListPageDto.blockEndPage},
+						               prevGroupStartPage = ${boardListPageDto.prevGroupStartPage},	
+						               nextGroupStartPage = ${boardListPageDto.nextGroupStartPage}"
+									  >
+									  
+			<table border=0 cellpadding=0 cellspacing=0>
+					<tr>
+						<td><br />
+							<table style="padding-left: 10px" border=0 cellpadding=0
+								cellspacing=0>
+								<tr>
+									<td bgcolor="f4f4f4" height="22">&nbsp;&nbsp; <b>게시판-리스트</b>
+									</td>
+								</tr>
+								
+								<tr bgcolor="#FFFFFF">
+									<td height="20" class="t1" align="right" valign="bottom">♠
+										총 <font color="#FF0000" th:text="${totalCount}">1707</font> 건 | 현재페이지( <font
+										color="#FF0000" th:text="${pageNumber+1}">3</font> / <font color="#0000FF" th:text="${totalPages}">171</font> )
+									</td>
+								</tr>
+							</table>  <!-- list -->
+							<form name="f" method="post" action="">
+								<table border="0" cellpadding="0" cellspacing="1" width="590"
+									bgcolor="BBBBBB">
+
+									<tr>
+										<td width=280 align=center bgcolor="E6ECDE">제목</td>
+										<td width=120 align=center bgcolor="E6ECDE">글쓴이</td>
+										<td width=120 align=center bgcolor="E6ECDE">글쓴날</td>
+										<td width=70 align=center bgcolor="E6ECDE">본횟수</td>
+									</tr>
+									<tr th:each="board:${boardListPageDto.page.content}">
+										<td width=280 bgcolor="ffffff" style="padding-left: 10px"
+											align="left"><a
+											th:href='@{board_view(boardno=${board.boardno},page=${boardListPageDto.page.number+1})}' th:text='${board.title}'> 게시판타이틀1688 </a>
+										</td>
+										<td width=120 align=center bgcolor="ffffff" th:text="${board.writer}">김경호1688</td>
+										<td width=120 bgcolor="ffffff" style="padding-left: 10px"
+											align="center" th:text="${#temporals.format(board.regdate, 'yyyy-MM-dd')}">2023-08-18</td>
+										<td width=70 align=center bgcolor="ffffff" th:text='${board.readcount}'>0</td>
+									</tr>
+								</table>
+								<!-- /list -->
+							</form> <br>
+							
+							<table border="0" cellpadding="0" cellspacing="1" width="590">
+								<tr>
+									<td align="center">
+									<!--  이전그룹 페이지로 이동 -->
+        							<a th:if="${prevGroupStartPage>0}" th:href="@{/board_list2(page=${prevGroupStartPage},size=${pageSize})}">◀◀</a>
+									<!--  이전 페이지로 이동 -->
+									<a th:if="${!boardListPageDto.page.first}" th:href="${boardListPage.first} ?'#':@{/board_list2(page=${pageNumber})}">◀</a>
+									<th:block th:each="page: ${#numbers.sequence(blockBeginPage, blockEndPage)}" >
+										<th:block th:unless="${page==pageNumber+1}">
+											<a th:href="@{/board_list2(page=${page},size=${pageSize})}"><strong th:text="${page}">2</strong></a>&nbsp;
+										</th:block>
+										<th:block th:if="${page==pageNumber+1}">
+										<font color='red'><strong th:text="${page}">3</strong></font>&nbsp;
+										</th:block> 
+									</th:block>
+									<!-- 다음 페이지로 이동 -->
+									<a th:if="${!boardListPageDto.page.last}" th:href="@{/board_list2(page=${pageNumber+2})}">▶</a>
+									<!-- 다음그룹 페이지로 이동 -->
+        							<a th:if="${nextGroupStartPage <= totalPages}" th:href="@{/board_list2(page=${nextGroupStartPage},size=${pageSize})}">▶▶</a>		
+								</tr>
+							</table> <!-- button -->
+							<table border="0" cellpadding="0" cellspacing="1" width="590">
+								<tr>
+									<td align="right"><input type="button" value="게시물 생성"
+										onclick="boardCreate();" /></td>
+								</tr>
+							</table></td>
+					</tr>
+				</table>
+			</div>
+			<!-- include_content.jsp end-->
+			<!-- content end -->
+		</div>
+		<!--wrapper end-->
+		<div id="footer"
+			th:insert="~{include_common_bottom::include_common_bottom}">
+			<!-- include_common_bottom.html start-->
+			<!-- include_common_bottom.html end-->
+		</div>
+	</div>
+	<!--container end-->
+</body>
+</html>
