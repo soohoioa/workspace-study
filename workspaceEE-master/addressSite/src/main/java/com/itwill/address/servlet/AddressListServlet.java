@@ -1,0 +1,92 @@
+package com.itwill.address.servlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.itwill.address.Address;
+import com.itwill.address.AddressService;
+
+@WebServlet("/address_list.do")
+public class AddressListServlet extends HttpServlet {
+
+	protected void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try {
+			/*
+			 * 1.AddressService객체생성 
+			 * 2.AddressService객체의 addressList() 메쏘드호출
+			 */
+			AddressService addressService=new AddressService();// 1.AddressService객체생성 
+			List<Address> addressList=addressService.addressList();
+			// 2.AddressService객체의 addressList() 메쏘드호출
+			
+			response.setContentType("text/html;charset=UTF-8");
+			/*
+			 response.setContentType("text/html;charset=utf-8"); (get, post 방식 둘다)
+			 --> 서블릿에서 직접 브라우저에 출력해줄경우 사용한다.
+			 브라우저 마다 기본적으로 문자코드를 해석하는 default가 다르기 때문에 
+			 우리는 브라우저에게 '우리는 utf-8 문자코드로 사용할거다. utf-8로 사용해줘' 라는 
+			 response.setContentType("text/html;charset=utf-8"); 를 써줘야 한다.
+			 */
+			
+			PrintWriter out = response.getWriter();
+			/*
+			 PrintWriter 클래스는 간단한 설명하자면, 바이트를 문자 형태를 가지는 객체로 바꿔준다. 
+			 클라이언트에게 문자 형태로 응답을 하고 싶기 때문에 out이라는 PrintWriter 클래스 객체를 정의하고 
+			 getWriter() 메소드를 통해 인스턴스를 얻었다.
+			 
+			 --> 요약
+			 1. Servlet에서 클라이언트의 요청(Request)에 대한 응답(Response) 형태는 문자(character) 또는 바이트(byte)가 될 수 있다.
+			 2. 클라이언트의 요청에 문자 형태로 응답하려면 데이터의 흐름(Stream)을 컨트롤 해야 한다. 
+			 	즉 텍스트(==문자) 형태로 응답을 보내도록 설정해야 한다.
+			 3. HttpServletResponse 인터페이스의 상위 인터페이스인 ServletResponse의 getWriter() 메소드를 호출하면 스트림에 텍스트를 기록하는 것이 가능하다.
+			 */
+			
+			out.println("<!DOCTYPE html>");
+			out.println("<html>");
+			out.println("<head>");
+			out.println("<meta charset='UTF-8'>");
+			out.println("<title>Insert title here</title>");
+			out.println("</head>");
+			out.println("<body>");
+			out.println("<h1>[주소록리스트]</h1><hr>");
+			out.println("<div>");
+			out.println("<a href='address_insert_form.do'>[주소록쓰기폼]</a>");
+			out.println("</div>");
+			out.println("<div>");
+			out.println("<ul>");
+			
+			for(Address address:addressList) {
+				out.println("<li><a href='address_detail.do?no="+address.getNo()+"'>["+address.getNo()+"]"+address.getName()+"</a></li>");
+			} //AddressDetailServlet 요청URL에서 받을수있도록 해줘야한다.
+			
+			out.println("</ul>");
+			out.println("</div>");
+			out.println("</body>");
+			out.println("</html>");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			/*
+			 * sendRedireect 방식이란
+			   response 기본 객체에서 많이 사용되는 기능 중 하나는 리다이렉트 기능이다. 
+			   리다이렉트는 웹 서버가 웹 브라우저에게 다른 페이지로 이동하라고 응답하는 기능이다. 
+			   예를 들어, 사용자가 로그인에 성공한 후 메인 페이지로 자동으로 이동하는 사이트가 많은데 이렇게 특정 페이지를 실행한 후 지정한 페이지로 이동하길 원할 때 리다이렉트 기능을 사용한다.
+
+			   즉, 리다이렉트는 웹 서버 측에서 웹 브라우저에게 어떤 페이지로 이동하라고 지정하는 것이다. 
+			   리다이렉트는 아래 모양으로 사용할 수있다.
+
+ 			   response.sendRedirect("이동할 jsp 페이지");
+			 */
+			return; // return 은 꼭 해주는게 좋다; 안하면 에러발생가능함;
+		}
+	}
+
+}

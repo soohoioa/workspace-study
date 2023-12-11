@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis3.dao.mapper.TutorMapper">
+	<resultMap id="tutorWithCoursesResultMap" type="com.mybatis3.domain.Tutor" autoMapping="true" >
+		<id column="TUTOR_ID" property="tutorId" />
+		<!-- <association property="address" javaType="com.mybatis3.domain.Address" autoMapping="true"> -->
+		<!--association 은 컬렉션이 아니라서 굳이 매핑 할 필요 없고 autoMapping 으로 사용한다. -->	
+		<collection property="courses" ofType="com.mybatis3.domain.Course"  autoMapping="true" >
+			<id column="COURSE_ID" property="courseId" />
+		</collection>
+		<!-- </association> -->
+		
+	</resultMap>
+	<!-- 
+	/*****************************************
+	SELECT  TUTOR + COURSE JOIN [ 1 : N ]
+	*****************************************/
+	 -->
+	 
+	
+	<!-- 		 
+	<select id="findTutorByIdWithCourses" parameterType="int" resultMap="tutorWithCoursesResultMap" >
+	  SELECT t.tutor_id, t.name as tutor_name, email,course_id, c.name, description, start_date, end_date
+      FROM tutors t 
+      left outer join courses c 
+      on t.tutor_id=c.tutor_id
+      where t.tutor_id=#{studId}
+	</select>  
+	 -->
+	<!-- TutorMapper.java 에서 사용할꺼라서 주석처리 해준다.주석 안하면 에러 발생한다. -->
+	
+	<!-- 여기엔 address가 매핑이 안되있어서 뽑을수가 없다. -->
+</mapper>
+

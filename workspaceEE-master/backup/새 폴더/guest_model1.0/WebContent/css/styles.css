@@ -1,0 +1,113 @@
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothiccoding.css);
+.nanumgothic * {
+ font-family: 76% 'Nanum Gothic', 76% arial,sans-serif;
+}
+.nanumgothiccoding * {
+ font-family: 76% 'Nanum Gothic Coding', 76% arial,sans-serif,monospace;
+}
+html,
+body {
+	margin: 0;
+	padding: 0;
+	/*font: 76% arial, sans-serif;*/
+	font-family:'Nanum Gothic';
+	text-align: center;
+}
+
+p {
+	margin: 0 10px 10px
+}
+
+a {
+	padding: 5px;
+	text-decoration: none;
+	color: #333333;
+}
+
+table {
+	width: 100%;
+}
+
+form {
+	margin: 10px;
+	margin-right: 0px;
+	text-align: center;
+}
+
+input,
+textarea,
+td {
+	font-size: 8pt;
+	color: #333333;
+}
+
+
+/**********container***********/
+div#container {
+	text-align: left;
+	width: 700px;
+	margin: 0 auto
+}
+
+/**********header***********/
+div#header {
+	background-color: #F3F2ED;
+	background: #fff url('../image/nav_bg01.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100%
+}
+
+div#header h1 {
+	height: 80px;
+	line-height: 80px;
+	margin: 17px 0 0 0;
+	padding-left: 10px;
+}
+
+/**********navigation***********/
+div#navigation {
+	background: #F6F0E0;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	float: left;
+	width: 150px;
+	height: 350px;
+}
+div#navigation ul {
+	margin: 15px 10px;
+	padding: 0;
+	list-style-type: none;
+}
+div#navigation li {
+	margin-bottom: 5px;
+}
+div#navigation p {
+	margin-top: 20px;
+	margin-left: 15px;
+	font-size: 12px;
+}
+/**********wrapper***********/
+div#wrapper {
+	margin-left: 0px;
+	width: 100%
+}
+/**********footer***********/
+div#footer {
+	background: #BFBD93;
+	clear: left;
+	width: 100%
+}
+div#footer p {
+	margin: 0;
+	padding: 5px 10px;
+}
+
+div#content {
+	margin: 0 0 0 150px
+}
+
+div#content p {
+	line-height: 1.4
+}

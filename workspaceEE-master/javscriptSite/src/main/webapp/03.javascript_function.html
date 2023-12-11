@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	/*
+	 함수정의
+	   - 윈도객체에소속된 함수가된다.
+	 */
+	let name = "global 이순신";
+	let msg = "global 아직도 3척의 배가 있습니다.";
+	function head_function() {
+		 window.document.write("head_function()"+msg+"<br>") // 전역객체 window는 항상 생략될수있다.
+		 // 모든 전역 변수와 함수는 window 객체의 프로퍼티(HTML 태그의 속성(attribute) 반영)다.
+		 // write() : document 객체에 담긴 HTML 콘텐츠 마지막에 HTML 태그들을 추가
+		 return;
+	} // 대부분 함수는 head 부분에 정의하고 필요시 body 부분에서 호출한다.
+	function hello1() { // 인자없다.
+		let name = "local 이순신";
+		let msg = "local 아직도 3척의 배가 있습니다";
+		document.write(name + "님" + msg + "[hello1]<br>");
+		return;
+	}
+	
+	/************* function argument **************/
+	function hello2(msg) { // 인자있다.
+		/*
+		메소드 파라메타 선언시에 let 키워드를 사용하지 않는다.
+		*/
+		document.write(name + "님" + msg + "[hello2(msg)]<br>");
+	}
+	
+	
+	function hello3(name, msg) {
+		document.write(name + "님" + msg + "[hello3(name, msg)]<br>");
+	}
+	
+	/*
+	만약 function hello2(msg) { } 가 연속으로 두번 사용되었다면 마지막에 작성된 함수만 호출된다.
+	*/
+	
+	function hello4(name, msg, count) {
+		if(count == undefined) {
+			count = 1;
+		}
+		for(let i = 0; i < count; i++) {// 변수는 선언하건 안하건 만들어지지만 잘못코딩하면 망.
+			document.write(name + "님" + msg + "[hello4(name, msg, count)]<br>");
+		}
+	}
+	
+	/************* function return **************/
+	function add(a,b) {
+		return a+b;
+	}
+	function sub(a,b) {
+		return a-b;
+	}
+	function div(a,b) {
+		return a/b;
+	}
+	function mul(a,b) {
+		return a*b;
+	}
+	
+	function alert(msg) {
+		document.write("<i> 내가 만든 경고 함수"+msg+"</i><br>" );
+	}
+	
+</script>
+
+</head>
+<body>
+<h1>자바스크립트 함수</h1><hr>
+<div>함수기반 언어이다</div>
+<script type="text/javascript">
+	
+	//함수호출
+	
+	window.head_function();
+	/*
+	Uncaught ReferenceError: body_end_function is not defined
+	body_end_function();
+	*/
+	hello1();
+	hello2("뭐하세요??");
+	hello2("안녕하세요");
+	hello3("제임스", " 집에갈래요");
+	hello3("카일로", " 집가고싶어요");
+	hello4("준", " 여름휴가 갈래요", 6);
+	hello4("호", " 여름휴가안가세요!!"); 
+	// 데이터를 안넣어줬는데 에러도 안뜨고 찍히지도 않고 호출은 됨; 그래서 if 를 사용함
+	// 파라미터에 숫자를 맞추지 않아도 전부 호출된다.
+	
+	let result = add(1,2);
+	document.write('add result : ', result, "<br>");
+	document.write('sub result : ', sub(1,2), "<br>");
+	document.write('mul result : ', mul(1,2), "<br>"); 
+	document.write('div result : ', div(1,2), "<br>"); // 자바와 다르게 짤리지 않고 0.5 이런식으로 소수점까지 잘 나옴
+
+	window.alert('경고 메세지');
+	
+</script>
+
+<script type="text/javascript">
+	
+	function body_end_function() {
+		document.write("body_end_function() <br>");
+	}
+	
+</script>
+
+</body>
+</html>

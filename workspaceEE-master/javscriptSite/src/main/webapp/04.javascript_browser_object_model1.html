@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	let result = window.confirm('삭제하시겠습니까?');
+	if(result) {
+		window.location.href = 'address_delete_action.jsp'; // href 에 url 이 넣으면 넘어감
+		
+	} else {
+		window.location.href = 'address_main.jsp'; 	
+		
+	}
+	
+	/*
+	location.reload(); 새로고침 버튼처럼 현재 리소스를 다시 불러온다.
+	location.replace('new_page.jsp'); 현재페이지를 새로운페이지로 바꿈, 요청이 들어감.
+	*/
+	
+	/*
+	history.go(); 히스토리에서 현재 웹 페이지에서 n만큼 상대적인 웹 페이지로 이동한다. (history.go(n);)
+	history.back(); 히스토리에 있는 이전 웹 페이지로 이동, 브라우저의 back 버튼과 동일하다.
+	*/
+	
+</script>
+
+</head>
+<body>
+<h1>BOM[history,location]</h1><hr/>
+</body>
+</html>
